@@ -31,5 +31,11 @@ class SaleSeeder extends Seeder
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'payment_method' => 'DANA'
         ]);
+        Sale::create([
+            'id' => 'S-201007-171924',
+            'total_price' => 25000,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'payment_method' => 'Shopee Pay'
+        ]);
     }
 }

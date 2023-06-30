@@ -36,5 +36,10 @@ class CartSeeder extends Seeder
             'product_id' => 8,
             'variant_id' => 9
         ]);
+        Cart::create([
+            'sale_id' => 'S-201007-171924',
+            'product_id' => 10,
+            'variant_id' => 11
+        ]);
     }
 }

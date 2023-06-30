@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Models\Sale;
-use App\Models\Variant;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -39,7 +37,7 @@ class SaleController extends Controller
      */
     public function show(string $id)
     {
-        $sale = Sale::with('carts.product.variants')->find($id);
+        $sale = Sale::with('carts.products.variants')->find($id);
         if (!$sale) {
             return response()->json(['code' => '400', 'message' => 'Unauthorized Access'], 400, [], JSON_PRETTY_PRINT);
         }
@@ -51,15 +49,15 @@ class SaleController extends Controller
             'carts' => [],
         ];
         foreach ($sale->carts as $cart) {
-            $product = $cart->product;
+            $products = $cart->products;
             $cartData = [
-                'product_id' => $product->id,
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
+                'product_id' => $products->id,
+                'name' => $products->name,
+                'description' => $products->description,
+                'price' => $products->price,
                 'variants' => [],
             ];
-            foreach ($product->variants as $variant) {
+            foreach ($products->variants as $variant) {
                 if ($cart->variant_id === $variant->id) {
                     $variantData = [
                         'id' => $variant->id,
