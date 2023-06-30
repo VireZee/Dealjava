@@ -65,7 +65,7 @@ class SaleController extends Controller
                             'name' => $variant->name,
                             'additional_price' => $variant->additional_price,
                         ];
-                        $cartData['variants'][] = $variantData;
+                        $cartData['variants'] = $variantData;
                     }
                 }
                 $saleData['carts'][] = $cartData;
