@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->json('cart');
             $table->integer('total_price');
             $table->dateTime('created_at');
             $table->string('payment_method');

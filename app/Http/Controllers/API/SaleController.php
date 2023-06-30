@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -36,7 +38,31 @@ class SaleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $sale = Sale::with('carts')->find($id);
+        if (!$sale) {
+            return response()->json(['code' => '400', 'message' => 'Unauthorized Access'], 400, [], JSON_PRETTY_PRINT);
+        } else {
+            $formattedCarts = $sale->carts->map(function ($cart) {
+                return [
+                    'product_id' => $cart->product_id,
+                    'price' => $cart->product->price,
+                    'variants' => $cart->variants->map(function ($variant) {
+                        return [
+                            'variant_name' => $variant->name,
+                            'price' => $variant->price,
+                        ];
+                    }),
+                ];
+            });
+            $saleData = [
+                'id' => $sale->id,
+                'total_price' => $sale->total_price,
+                'created_at' => $sale->created_at,
+                'payment_method' => $sale->payment_method,
+                'carts' => $sale->carts
+            ];
+            return response()->json($saleData, 200, [], JSON_PRETTY_PRINT);
+        }
     }
 
     /**
