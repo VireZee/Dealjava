@@ -7,8 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     public $timestamps = false;
-    public function products()
+    public function sale()
     {
-        return $this->belongsToMany(Product::class, 'cart_product');
+        return $this->belongsTo(Sale::class, 'sale_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function variant()
+    {
+        return $this->belongsTo(Variant::class, 'variant_id');
     }
 }

@@ -21,7 +21,7 @@ class SaleSeeder extends Seeder
         ]);
         Sale::create([
             'id' => 'S-201007-171922',
-            'total_price' => 145000,
+            'total_price' => 185000,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'payment_method' => 'OVO'
         ]);
