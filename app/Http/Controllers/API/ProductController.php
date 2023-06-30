@@ -27,7 +27,16 @@ class ProductController extends Controller
     /**
      * Display the specified resource.  
      */
-    public function show(string $id)
+    public function show()
+    {
+        $product = Product::with('variants')->get();
+        if (!$product) {
+            return response()->json(['code' => '400', 'message' => 'Unauthorized Access'], 400, [], JSON_PRETTY_PRINT);
+        } else {
+            return response()->json($product, 200, [], JSON_PRETTY_PRINT);
+        }
+    }
+    public function show2(string $id)
     {
         $product = Product::with('variants')->find($id);
         if (!$product) {
@@ -36,7 +45,6 @@ class ProductController extends Controller
             return response()->json($product, 200, [], JSON_PRETTY_PRINT);
         }
     }
-
     /**
      * Update the specified resource in storage.
      */

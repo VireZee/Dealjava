@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('inventories/{id}', [InventoryController::class, 'show']);
-Route::get('products/{id}', [ProductController::class, 'show']);
+Route::get('inventories', [InventoryController::class, 'show']);
+Route::get('inventories/{id}', [InventoryController::class, 'show2']);
+Route::get('products', [ProductController::class, 'show']);
+Route::get('products/{id}', [ProductController::class, 'show2']);
 Route::get('sales/{id}', [SaleController::class, 'show']);

@@ -27,7 +27,16 @@ class InventoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
+    {
+        $inventory = Inventory::get();
+        if (!$inventory) {
+            return response()->json(['code' => '400', 'message' => 'Unauthorized Access'], 400, [], JSON_PRETTY_PRINT);
+        } else {
+            return response()->json($inventory, 200, [], JSON_PRETTY_PRINT);
+        }
+    }
+    public function show2(string $id)
     {
         $inventory = Inventory::find($id);
         if (!$inventory) {
